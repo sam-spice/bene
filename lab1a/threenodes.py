@@ -66,7 +66,7 @@ def main():
     single_packet_time = 1000.00 / (10.00 ** 9)
     generic_3node('../lab1a/networks/faster-faster.txt', single_packet_time)
 
-    ('***Scenario 3 ***')
+    ('***Scenario 3***')
     single_packet_time = 1000.00 / (10.00 ** 6)
     generic_3node('../lab1a/networks/fast-slow.txt', single_packet_time)
 
