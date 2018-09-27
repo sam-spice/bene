@@ -58,16 +58,16 @@ def generic_3node(file_name, time_to_send_packet):
     Sim.scheduler.run()
 
 def main():
-    ('***Scenario 1***')
-    single_packet_time = 1000.00 / (10.00 ** 6)
+    print('***Scenario 1***')
+    single_packet_time = (1000.00 / (10.00 ** 6)) * 8
     generic_3node('../lab1a/networks/fast-fast.txt', single_packet_time)
 
-    ('***Scenario 2***')
-    single_packet_time = 1000.00 / (10.00 ** 9)
+    print('***Scenario 2***')
+    single_packet_time = (1000.00 / (10.00 ** 9)) * 8
     generic_3node('../lab1a/networks/faster-faster.txt', single_packet_time)
 
-    ('***Scenario 3***')
-    single_packet_time = 1000.00 / (10.00 ** 6)
+    print('***Scenario 3***')
+    single_packet_time = (1000.00 / (10.00 ** 6)) * 8
     generic_3node('../lab1a/networks/fast-slow.txt', single_packet_time)
 
 if __name__ == '__main__':
