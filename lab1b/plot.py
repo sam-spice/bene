@@ -11,39 +11,32 @@ class Plotter:
         pass
 
     def linePlot(self):
-        """ Create a line graph. """
-        data = pd.read_csv("data1.csv")
-        plt.figure()
-        ax = data.plot(x='Time', y='Value of Company')
-        ax.set_xlabel("Days")
-        ax.set_ylabel("Dollars (millions)")
-        fig = ax.get_figure()
-        fig.savefig('line.png')
+        mu = 1000000 // (1000 * 8)
+        p_array = [0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.90, 0.95, 0.98]
+        empirical = list()
+        theoretical_list = list()
+        indexes = list()
+        for p in p_array:
+            csv_file_name = "data/queue-" + "{0:.2f}".format(p) + ".csv"
+            csv_data = pd.read_csv(csv_file_name)
+            average_delay = csv_data['q_delay'].mean()
+            theoretical = p / ((2 * mu) * (1 - p))
+            empirical.append(average_delay)
+            theoretical_list.append(theoretical)
+            indexes.append(p)
 
-    def boxPlot(self):
-        """ Create a box plot. """
-        data = pd.read_csv("data2.csv")
-        plt.figure()
-        ax = data.boxplot(return_type='axes')
-        ax.set_xlabel("Day")
-        ax.set_ylabel("Level of Stress")
-        fig = ax.get_figure()
-        fig.savefig('boxplot.png')
+        df = pd.DataFrame({
+        'empirical': empirical,
+        'theoretical': theoretical_list}, index=indexes)
 
-    def histogramPlot(self):
-        """ Create a histogram. """
-        data = pd.read_csv("data3.csv")
-        plt.figure()
-        fig, ax = plt.subplots()
-        data.hist(ax=ax)
-        ax.set_xlabel("Pets")
-        ax.set_ylabel("Number of People")
+        #plt.figure()
+        ax = df.plot()
+        ax.set_xlabel("p")
+        ax.set_ylabel("Queuing Delay")
         fig = ax.get_figure()
-        fig.savefig('histogram.png')
+        fig.savefig('graphs/delay.png')
 
 
 if __name__ == '__main__':
     p = Plotter()
     p.linePlot()
-    p.boxPlot()
-    p.histogramPlot()

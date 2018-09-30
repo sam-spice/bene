@@ -50,8 +50,8 @@ class DelayHandler(object):
 
     def write_out(self):
         with open(self.csv_file, 'wb') as csvfile:
-            csv_writer = csv.writer(csvfile, delimiter=' ',
-                                    quotechar='|', quoting=csv.QUOTE_MINIMAL)
+            csv_writer = csv.writer(csvfile)
+            csv_writer.writerow(['curr_time', 'q_delay'])
             for row in self.received:
                 csv_writer.writerow(row)
 
@@ -81,7 +81,7 @@ def generic_3node(p, csv_file_name):
     d = DelayHandler(csv_file_name)
     net.nodes['n3'].add_protocol(protocol="delay", handler=d)
 
-    # setup packet generator
+    # setup packet gen   erator
     destination = n3.get_address('n2')
     max_rate = 1000000 // (1000 * 8)
     load = p * max_rate
